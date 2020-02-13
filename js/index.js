@@ -1,50 +1,42 @@
-
+// Listen for the window's scroll Event
 window.addEventListener(`scroll`, event => { 
 
-  let scrolledPxY = window.scrollY;
-  console.log(scrolledPxY);
+  // Selecting the progress bar that will be changed based on how much scrolled
+  const progress = document.querySelector(`.progress`);
+
+  // Height of the entire document
+  let documentH = document.documentElement.scrollHeight;
+  // Height of the window
+  let windowH = window.innerHeight;
+
+  // Total of the scrollable height
+  let scrollable = documentH - windowH;
+  // OR can be written like..to shorten
+  // let scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  
+  // How much the user has scrolled down
+  // Pixels scrolled after the scroll event was triggered
+  let scrolled = window.scrollY;
+
+
+
+  // Calculate the percentage that the window has scrolled at that point, relative to the total possible amount that can possibly be scrolled
+  
+  // Percentage
+  let percentageScrolled = 100;
+
+  // If user can actually scroll down
+  // If scrollable is greater than 0
+  // Is there a scroll bar on the screen
+  // if yes, then calculate how much ahs been scrolled down
+  if (scrollable > 0){
+
+    percentageScrolled = Math.ceil(scrolled / scrollable * 100);
+  }
+
+// Translate that computed value (a percentage) to the width of the .progress-bar
+  progress.style.width = `${percentageScrolled}%`;
+
+  console.log(percentageScrolled);
   
 });
-
-  // // Pixels scrolled after the scroll event was triggered
-  // let scrolledPxY = window.scrollY  // pixels scrolled vertically
-  // let scrolledPxX = window.scrollX  // pixels scrolled horizontally
-
-// let $doc = document.documentElement
-  // let windowH = $doc.clientHeight
-  // let documentH = $doc.scrollHeight
-  // let progress = ([$doc.clientHeight]/[$doc.scrollHeight] = getElementbyId)
-
-// 
-
-// let $doc = document.documentElement  // Select the <html> element (the bigger wrapper there is)
-
-// // DIMENSIONS
-
-// // Window, including scrolls bars (window's outside perimeter)
-// let windowHsc = window.innerHeight  // window height (px)
-// let windowWsc = window.innerWidth  // window width (px) 
-
-// // Window, not including scrolls bars (inside of the scroll bars)
-// let windowH = $doc.clientHeight  // window height (px)
-// let windowW = $doc.clientWidth  // window width (px)
-// // ** this is weird one! it's obtaining the windows true inner dimensions via the documentElement
-
-// // Dimensions of any element (including content and padding, but not border or margin)
-// let documentH = $doc.scrollHeight
-// let documentW = $doc.scrollWidth
-
-
-
-
-// var h = document.documentElement,
-//   b = document.body,
-//   st = 'scrollTop',
-//   sh = 'scrollHeight',
-//   progress = document.querySelector('.progress'),
-//   scroll;
-
-// document.addEventListener('scroll', function() {
-//   scroll = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-//   progress.style.setProperty('--scroll', scroll + '%');
-// });
